@@ -186,14 +186,14 @@ impl VZVirtualMachineConfiguration {
         }
     }
 
-    pub fn validate_with_error(&self) -> Result<BOOL, NSError> {
+    pub fn validate_with_error(&self) -> Result<i8, NSError> {
         unsafe {
             let error = NSError(StrongPtr::new(0 as Id));
             let obj: Id = msg_send![*self.0, validateWithError: &(*error.0)];
             if error.code() != 0 {
                 Err(error)
             } else {
-                Ok(obj as BOOL)
+                Ok(obj as i8)
             }
         }
     }
@@ -248,7 +248,7 @@ impl VZVirtualMachine {
 
     pub unsafe fn request_stop_with_error(&mut self) -> Result<bool, NSError> {
         let error = NSError(StrongPtr::new(0 as Id));
-        let ret: BOOL = msg_send![*self.0, requestStopWithError:*error.0];
+        let ret: i8 = msg_send![*self.0, requestStopWithError:*error.0];
         if error.code() != 0 {
             Err(error)
         } else {

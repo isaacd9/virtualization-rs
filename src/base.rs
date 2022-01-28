@@ -114,9 +114,9 @@ impl NSURL {
     pub fn check_resource_is_reachable_and_return_error(&self) -> bool {
         let b = unsafe {
             let obj: Id = msg_send![*self.0, checkResourceIsReachableAndReturnError: NIL];
-            obj as BOOL
+            obj as i8
         };
-        b == YES
+        b == YES as i8
     }
 
     pub fn absolute_url(&self) -> NSURL {
